@@ -1,8 +1,8 @@
 // Import modules
 const fs = require('fs');
 const inquirer = require('inquirer');
-const {circle, square, triangle} = require('./lib/shapes');
-const { default: Choices } = require('inquirer/lib/objects/choices');
+const {circle, square, triangle} = require('./lib/shapes.js');
+const Shapes = require('./lib/shapes.js')
 
 class SVG {
     constructor() {
@@ -46,3 +46,28 @@ const questions = [
 ];
 
 // write data to file
+function init() {
+    inquirer
+    .prompt(questions).then((answers) => {
+        fs.writeFile('./deliverable/logo.svg', answers.circle.triangle.square, (err) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log('Congrats, you generated a logo.svg!')
+            }
+        })
+    })
+}
+init();
+
+// function writeToFile(data) {
+//     const fileName = './deliverable/logo.svg'
+// 	console.log("Writing [" + data + "] to file [" + fileName + "]")
+//     filesystem.writeFile(fileName, data, function (err) {
+//         if (err) {
+//             return console.log(err);
+//         }
+//         console.log("Congrats, you generated a logo.svg!");
+//     });
+// }
+
