@@ -27,29 +27,57 @@ const questions = [
         name: 'text',
         message: 'Enter up to 3 characters:'
     },
+    
     {
         type: 'input',
         name: 'color',
         message: 'Text Color| Enter color keyword or a hexadecimal number:'
     },
+    
     {
         type: 'input',
         name: 'shape',
         message: 'Shape Color| Enter color keyword or a hexadecimal number:'
     },
+    
     {
         type: 'list',
         name: 'shape-image',
         message:'Shape| Choose a shape that you would like to use:',
         choices: ['Circle', 'Square', 'Triangle']
     }
+
 ];
 
-// write data to file
 function init() {
     inquirer
     .prompt(questions).then((answers) => {
-        fs.writeFile('./deliverable/logo.svg', answers.circle.triangle.square, (err) => {
+        // Create an SVG object
+        const logo = new SVG();
+
+        // Set text properties based on user's answers
+        logo.settext(answers.text, answers.color);
+
+        // Set shape properties based on user's answers
+        let selectedShape;
+        switch (answers['shape-image']) {
+            case 'Circle':
+                selectedShape = new Shapes.circle(answers.shape);
+                break;
+            case 'Square':
+                selectedShape = new Shapes.square(answers.shape);
+                break;
+            case 'Triangle':
+                selectedShape = new Shapes.triangle(answers.shape);
+                break;
+            default:
+                console.error('Invalid shape selected');
+                return;
+        }
+        logo.setshape(selectedShape);
+
+        // Render the SVG content and save it to a file
+        fs.writeFile('./deliverable/logo.svg', logo.render(), (err) => {
             if (err) {
                 console.error(err);
             } else {
@@ -59,6 +87,32 @@ function init() {
     })
 }
 init();
+
+
+
+// write data to file
+
+
+
+
+
+
+
+
+
+// function init() {
+//     inquirer
+//     .prompt(questions).then((answers) => {
+//         fs.writeFile('./deliverable/logo.svg', answers.circle.triangle.square, (err) => {
+//             if (err) {
+//                 console.error(err);
+//             } else {
+//                 console.log('Congrats, you generated a logo.svg!')
+//             }
+//         })
+//     })
+// }
+// init();
 
 // function writeToFile(data) {
 //     const fileName = './deliverable/logo.svg'
