@@ -13,10 +13,11 @@ class SVG {
         return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shape}${this.text}</svg>`
     }
     settext(text, color) {
+        
         this.text = `<text x= '150' y= '125' font-size= '60' text-anchor= 'middle' fill= '${color}'>${text}</text>`
     }
     setshape(shape) {
-        this.shape =shape.render()
+        this.shape = shape.render(shape)
     }
 }
 
@@ -60,20 +61,27 @@ function init() {
 
         // Set shape properties based on user's answers
         let selectedShape;
+        let shapeName;
         switch (answers['shape-image']) {
             case 'Circle':
-                selectedShape = new Shapes.circle(answers.shape);
+                shapeName = 'circle'
+                selectedShape = new Shapes.Circle(answers.shape);
                 break;
             case 'Square':
-                selectedShape = new Shapes.square(answers.shape);
+                shapeName = 'rect'
+                selectedShape = new Shapes.Square(answers.shape);
                 break;
             case 'Triangle':
-                selectedShape = new Shapes.triangle(answers.shape);
+                shapeName = 'polygon'
+                selectedShape = new Shapes.Triangle(answers.shape);
                 break;
             default:
                 console.error('Invalid shape selected');
                 return;
         }
+        
+        selectedShape.setShape(shapeName)
+        selectedShape.setColor(answers.shape);
         logo.setshape(selectedShape);
 
         // Render the SVG content and save it to a file
