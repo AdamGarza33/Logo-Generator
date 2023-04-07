@@ -27,4 +27,4 @@ run npm install and npm i inquirer@8.2.4 in the command line
 * All input entered from the prompted questions are then entered into a deliverable folder making a file called logo.svg where your logo is stored
 * Open preview in live server and you are shown a 300x200 pixel image that matches the criteria entered
 
-https://drive.google.com/file/d/1xPRsZm-0xbBTRdqzT7bVlJmKPBMU5tL0/view?usp=share_link
+Video Walkthrough: https://drive.google.com/file/d/1xPRsZm-0xbBTRdqzT7bVlJmKPBMU5tL0/view?usp=share_link
